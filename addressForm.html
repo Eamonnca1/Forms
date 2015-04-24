@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        form{
+            padding:1em;
+            width:25em;
+            float:left;
+        }
+        input {
+            display:block;
+        }
+        label{
+            float:left;
+            width:50%;
+            text-align: right;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 1.2em;
+        }
+        input, select, label {
+            margin:1em;
+            float:left
+        }
+        input, select {
+            border:1px solid #ccc;
+            padding:0.5em;
+        }
+        #UKFields, #USAFields, #CanadaFields {
+            position:relative;
+            display:none;
+            height;0px;
+        }
+
+        #info{
+            float: left;
+        }
+    </style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            function showDiv(div) {
+                //console.log(div);
+                divToShow=div;
+                $(divToShow).show();
+            }
+
+            function hideDiv(div) {
+                divToHide=div;
+                $(divToHide).hide();
+            }
+
+            var divArray=["#USAFields","#UKFields","#CanadaFields"];
+            var displayedDiv;
+
+            function checkToSeeWhatsDisplayed() {
+                var j;
+                for (var i=0;i<divArray.length;i++) {
+                    j=divArray[i];
+                    if(($(j).css("display"))!="none") {
+                        displayedDiv=j;
+                    };
+                }
+                return displayedDiv;
+            }
+
+            $("#country").change(function() {
+                var divToDisplay="#"+this.value+"Fields";
+                if(divToDisplay==checkToSeeWhatsDisplayed()) {
+                    //already displayed
+                } else {
+                    for (var i=0;i<divArray.length;i++) {
+                        if (divArray[i] == divToDisplay) {
+                            showDiv(divArray[i]);
+                        } else {
+                            hideDiv(divArray[i]);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <form>
+        <label for="firstName">First Name</label>
+        <input type="text" size="12" name="firstName" id="firstName" placeholder="First Name" />
+
+        <label for="lastName">Last Name</label>
+        <input type="text" size="12" name="lastName" id="lastName" placeholder="Last Name" />
+
+        <div id="CanadaFields">
+            <label for="ca_addr1">Address</label>
+            <input type="text" size="12" name="ca_addr1" id="ca_addr1" placeholder="Address" />
+
+            <label for="ca_city">City</label>
+            <input type="text" size="12" name="ca_city" id="ca_city" placeholder="City" />
+
+            <label for="ca_province">Province</label>
+            <input type="text" size="12" name="ca_province" id="ca_province" placeholder="Province"/>
+
+            <label for="ca_postal">Postal Code</label>
+            <input type="text" size="12" name="ca_postal" id="ca_postal" placeholder="Postal code"/>
+
+        </div>
+
+        <div id="USAFields">
+            <label for="us_addr1">Address</label>
+            <input type="text" size="12" name="us_addr1" id="us_addr1" placeholder="Address" />
+
+            <label for="us_city">City</label>
+            <input type="text" size="12" name="us_city" id="us_city" placeholder="City" />
+
+            <label for="us_state">State</label>
+            <input type="text" size="12" name="us_state" id="us_state" placeholder="State"/>
+
+            <label for="us_zip">Zip</label>
+            <input type="text" size="12" name="us_zip" id="us_zip" placeholder="Zip"/>
+
+        </div>
+        <div id="UKFields">
+            <label for="uk_addr2">Address</label>
+            <input type="text" size="12" name="uk_addr2" id="uk_addr2" />
+
+            <label for="uk_addr3"></label>
+            <input type="text" size="12" name="uk_addr2" id="uk_addr3" />
+
+            <label for="uk_postcode">Postcode</label>
+            <input type="text" size="12" name="uk_postcode" id="uk_postcode" placeholder="Postcode" />
+
+        </div>
+
+        <label for="country">Country</label>
+        <select id="country" name="country">
+            <option value="" selected=""true">Select...</option>
+            <option value="Canada">Canada</option>
+            <option value="USA">United States</option>
+            <option value="UK">United Kingdom</option>
+        </select>
+    </form>
+<div id="info">
+    <h1>Country-sensitive Address Form</h1>
+    <p>Adjusts address fields based on which country is selected.</p>
+    <p>Countries supported so far:</p>
+    <ul>
+        <li>Canada</li>
+        <li>UK</li>
+        <li>USA</li>
+    </ul>
+</div>
+
+</body>
+</html>
