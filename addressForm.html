@@ -41,6 +41,13 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+
+            // Put country-specific div IDs into an array that we can loop through
+            var divArray=["#USAFields","#UKFields","#CanadaFields"];
+
+            // We'll use this later, it'll be blank when the page loads
+            var displayedDiv;
+
             function showDiv(div) {
                 //console.log(div);
                 divToShow=div;
@@ -51,9 +58,6 @@
                 divToHide=div;
                 $(divToHide).hide();
             }
-
-            var divArray=["#USAFields","#UKFields","#CanadaFields"];
-            var displayedDiv;
 
             function checkToSeeWhatsDisplayed() {
                 var j;
@@ -68,9 +72,9 @@
 
             $("#country").change(function() {
                 var divToDisplay="#"+this.value+"Fields";
-                if(divToDisplay==checkToSeeWhatsDisplayed()) {
-                    //already displayed
-                } else {
+                if(divToDisplay!=checkToSeeWhatsDisplayed()) {
+                    // Loop through the array of divs, hiding what should be hidden and showing
+                    // what should be shown
                     for (var i=0;i<divArray.length;i++) {
                         if (divArray[i] == divToDisplay) {
                             showDiv(divArray[i]);
