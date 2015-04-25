@@ -56,7 +56,9 @@
 
             function hideDiv(div) {
                 divToHide=div;
-                $(divToHide).hide();
+                if($(divToHide).css("display")=="block") {
+                    $(divToHide).hide();
+                }
             }
 
             function checkToSeeWhatsDisplayed() {
